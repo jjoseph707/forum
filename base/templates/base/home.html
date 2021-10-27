@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<h1>Home</h1>
+<hr>
+
+{% for board in boards %}
+    <h4>{{board.topic}}</h4>
+    <br>
+{% endfor %}
+
+{% endblock content %}

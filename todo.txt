@@ -1,0 +1,2 @@
+1. Finalise board/post model and migrate
+2. Create board + post url/template/views
