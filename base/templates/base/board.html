@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<h1>{{board.topic}}</h1>
+<hr>
+
+{% for post in posts %}
+    <h4><a href="{% url 'post' board.topic post.id %}">{{post.title}}</a></h4>
+    <h5>Posted by <a href="">{{post.creator.username}}</a>, {{post.created|timesince}} ago</h5>
+    <hr>
+{% endfor %}
+
+{% endblock content %}

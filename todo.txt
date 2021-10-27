@@ -1,2 +1,5 @@
-1. Finalise board/post model and migrate
-2. Create board + post url/template/views
+1. Finalise board/post model and migrate (done)
+2. Create board + post url/template/views (done)
+3. CRUD for board + posts
+4. User registration/login
+5. User board + post CRUD
