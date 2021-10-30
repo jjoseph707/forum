@@ -8,4 +8,6 @@
     <h4><a href="{% url 'board' board.topic%}">{{board.topic}}</a></h4>
 {% endfor %}
 
+<hr>
+<a href="{% url 'create-board' %}">Create Board</a>
 {% endblock content %}

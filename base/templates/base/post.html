@@ -3,6 +3,8 @@
 
 <h1>{{post.title}}</h1>
 <h5>by {{post.creator}}</h5>
+<a href="{% url 'edit-post' title post.id  %}">Edit Post</a>
+<a href="{% url 'delete-post' title post.id  %}">Delete Post</a>
 <hr>
 <p>{{post.content}}</p>
 

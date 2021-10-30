@@ -2,6 +2,10 @@
 {% block content %}
 
 <h1>{{board.topic}}</h1>
+<p>{{board.description}}</p>
+<a href="{% url 'edit-board' board.topic %}">Edit board</a>
+<a href="{% url 'delete-board' board.topic %}">Delete board</a>
+<a href="{% url 'create-post' board.topic %}">Add Post</a>
 <hr>
 
 {% for post in posts %}
