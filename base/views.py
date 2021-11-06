@@ -1,14 +1,59 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
-from .models import Board, Post
-from .forms import BoardForm, PostForm
+from .models import Board, Post, User
+from .forms import BoardForm, PostForm, RegisterUserForm
 
 
 def home(request):
     boards = Board.objects.all()
     context = {'boards':boards}
     return render(request,'base/home.html',context)
+
+#user
+def login_user(request):
+    if request.method=="POST":
+            email=request.POST.get("email")
+            password=request.POST.get("password")
+
+            try:
+                user = User.objects.get(email=email)
+            except:
+                messages.error(request,'#1 Incorrect credentials')
+                return redirect('login')
+            user = authenticate(request,email=email,password=password)
+            if user is not None:
+                login(request,user)
+                return redirect('home')
+            else:
+                messages.error(request,'#2 Incorrect credentials')
+                return redirect('login')
+
+    context={}
+    return render(request,'base/login.html',context)
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
+
+def register_user(request):
+    form = RegisterUserForm()
+    if request.method == 'POST':
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.name = user.name.lower()
+            user.email = user.email.lower()
+            user.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request,'An error occurred during registration')
+    content={'form':form}
+    return render(request,'base/register.html',content)
+
 
 #board
 def board(request, pk):

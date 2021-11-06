@@ -1,6 +1,6 @@
 1. Finalise board/post model and migrate (done)
 2. Create board + post url/template/views (done)
-3. CRUD for board + posts
-4. User registration/login
-5. User board/post CRUD
-6. Comments on posts CRUD
+3. CRUD for board + posts (done)
+4. User registration/login (done)
+5. User board/post authentication
+6. Comments (CRUD/authentication)

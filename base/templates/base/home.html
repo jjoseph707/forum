@@ -2,12 +2,13 @@
 {% block content %}
 
 <h1>Boards:</h1>
+<a href="{% url 'create-board' %}">Create Board</a>
 <hr>
 
 {% for board in boards %}
-    <h4><a href="{% url 'board' board.topic%}">{{board.topic}}</a></h4>
+    <h3><a href="{% url 'board' board.topic%}">{{board.topic}}</a></h3>
 {% endfor %}
 
 <hr>
-<a href="{% url 'create-board' %}">Create Board</a>
+
 {% endblock content %}
