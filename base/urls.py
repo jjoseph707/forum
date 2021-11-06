@@ -10,6 +10,8 @@ urlpatterns = [
     path('login/',views.login_user,name='login'),
     path('logout/',views.logout_user,name='logout'),
     path('register/',views.register_user,name='register'),
+    path('profile/<str:pk>/',views.user_profile,name='user-profile'),
+    path('profile/edit/<str:pk>/',views.edit_profile,name='edit-profile'),
     #boards
     path('board/<str:pk>/',views.board,name='board'),
     path('create-board/',views.create_board,name='create-board'),

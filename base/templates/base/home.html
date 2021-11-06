@@ -8,6 +8,10 @@
 {% endif %}
 <hr>
 
+<form action="{% url 'home' %}" method="GET">
+    <input type="text" name="q" placeholder="Search boards....">
+</form>
+<hr>
 
 {% for board in boards %}
     <h3><a href="{% url 'board' board.topic%}">{{board.topic}}</a></h3>

@@ -3,6 +3,11 @@
 
 <h1>{{board.topic}}</h1>
 <p>{{board.description}}</p>
+<form action="{% url 'board' board.topic%}" method="GET">
+    <input type="text" name="q" placeholder="Search {{board.topic}}....">
+</form>
+
+
 {% if request.user.is_authenticated %}
     {% if request.user == board.host %}
     <a href="{% url 'edit-board' board.topic %}">Edit board</a>
@@ -14,7 +19,7 @@
 
 {% for post in posts %}
     <h4><a href="{% url 'post' board.topic post.id %}">{{post.title}}</a></h4>
-    <h5>Posted by <a href="">{{post.creator.name}}</a>, {{post.created|timesince}} ago</h5>
+    <h5>Posted by <a href="{% url 'user-profile' post.creator.name %}">{{post.creator.name}}</a>, {{post.created|timesince}} ago</h5>
     <hr>
 {% endfor %}
 

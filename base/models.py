@@ -20,7 +20,7 @@ class Board(models.Model):
 
 class Post(models.Model):
     board = models.ForeignKey(Board,on_delete=models.CASCADE, null=True) #delete post when board deleted
-    creator = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
+    creator = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
     content = models.TextField(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
@@ -31,7 +31,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE, null=True)
-    creator = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
+    creator = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     content = models.TextField(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

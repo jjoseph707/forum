@@ -3,22 +3,52 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.db.models import Q
 
 from .models import Board, Post, User, Comment
-from .forms import BoardForm, PostForm, RegisterUserForm
+from .forms import BoardForm, PostForm, RegisterUserForm, UserForm
 
 
 def home(request):
-    boards = Board.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+
+    boards = Board.objects.filter(
+        Q(topic__icontains=q) |
+        Q(description__icontains=q)
+        )
+
+    #boards = Board.objects.all()
     context = {'boards':boards}
     return render(request,'base/home.html',context)
 
 #user
+
+def user_profile(request,pk):
+    profile=User.objects.get(name=pk)
+    context={'profile':profile}
+    return render(request,'base/profile.html',context)
+
+@login_required(login_url='login')
+def edit_profile(request,pk):
+    profile = User.objects.get(name=pk)
+    form = UserForm(instance=profile)
+
+    if request.user != profile:
+        return HttpResponse('You are not allowed here')
+
+
+    if request.method == 'POST':
+        form = UserForm(request.POST,request.FILES,instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile',pk=pk)
+    context={'form':form}
+    return render(request,'base/edit-profile.html',context)
+
 def login_user(request):
     if request.method=="POST":
             email=request.POST.get("email")
             password=request.POST.get("password")
-
             try:
                 user = User.objects.get(email=email)
             except:
@@ -46,6 +76,7 @@ def register_user(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.name = user.name.lower()
+            user.username = user.name.lower()
             user.email = user.email.lower()
             user.save()
             login(request, user)
@@ -57,8 +88,15 @@ def register_user(request):
 
 #board
 def board(request, pk):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
     target_board = Board.objects.get(topic=pk)
+
+    #filter posts by board then filter by search params
     posts = Post.objects.filter(board__topic=pk).order_by('-created')
+    posts = posts.filter(
+        Q(title__icontains=q) |
+        Q(content__icontains=q)
+    ).order_by('-created')
 
     context = {'board':target_board,'posts':posts}
     return render(request,'base/board.html',context)

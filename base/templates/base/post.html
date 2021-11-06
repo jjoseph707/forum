@@ -2,7 +2,7 @@
 {% block content %}
 
 <h1>{{post.title}}</h1>
-<h5>by <a href="">{{post.creator.name}}</a></h5>
+<h5>by <a href="{% url 'user-profile' post.creator.name %}">{{post.creator.name}}</a></h5>
 {% if request.user == board.host %}
 <a href="{% url 'edit-post' title post.id  %}">Edit Post</a>
 <a href="{% url 'delete-post' title post.id  %}">Delete Post</a>
@@ -26,7 +26,7 @@
     <h4>Comments:</h4>
     {% for comment in comments %}
     <small>
-        Posted by <a href="">{{comment.creator.name}}</a> , {{comment.created|timesince}} ago
+        Posted by <a href="{% url 'user-profile' comment.creator.name %}">{{comment.creator.name}}</a> , {{comment.created|timesince}} ago
         {% if comment.creator == request.user %} |
         <a href="{% url 'delete-comment' post.board.id post.id comment.id %}">Delete</a>
         {% endif %}

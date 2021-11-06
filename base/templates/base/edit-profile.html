@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<div>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <label for="">{{field.label}}</label>
+        {{field}}
+        <br>
+        {% endfor %}
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+
+{% endblock content %}

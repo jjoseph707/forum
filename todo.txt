@@ -4,4 +4,6 @@
 4. User registration/login (done)
 5. User board/post authentication (done)
 6. Comments (CRUD/authentication) (done)
-7. Search functionality 
+7. Search functionality (done)
+8. User profiles + profile editing (done)
+9. Basic template 
