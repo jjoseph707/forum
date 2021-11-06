@@ -15,7 +15,6 @@ class Board(models.Model):
     host = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
 
-
     def __str__(self):
         return self.topic
 
@@ -30,3 +29,12 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE, null=True)
+    creator = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
+    content = models.TextField(null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.content

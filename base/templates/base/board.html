@@ -3,14 +3,18 @@
 
 <h1>{{board.topic}}</h1>
 <p>{{board.description}}</p>
-<a href="{% url 'edit-board' board.topic %}">Edit board</a>
-<a href="{% url 'delete-board' board.topic %}">Delete board</a>
+{% if request.user.is_authenticated %}
+    {% if request.user == board.host %}
+    <a href="{% url 'edit-board' board.topic %}">Edit board</a>
+    <a href="{% url 'delete-board' board.topic %}">Delete board</a>
+    {% endif %}
 <a href="{% url 'create-post' board.topic %}">Add Post</a>
+{% endif %}
 <hr>
 
 {% for post in posts %}
     <h4><a href="{% url 'post' board.topic post.id %}">{{post.title}}</a></h4>
-    <h5>Posted by <a href="">{{post.creator.username}}</a>, {{post.created|timesince}} ago</h5>
+    <h5>Posted by <a href="">{{post.creator.name}}</a>, {{post.created|timesince}} ago</h5>
     <hr>
 {% endfor %}
 

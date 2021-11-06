@@ -6,6 +6,7 @@ class BoardForm(ModelForm):
     class Meta:
         model=Board
         fields='__all__'
+        exclude = ['host']
 
 class PostForm(ModelForm):
     class Meta:

@@ -2,11 +2,42 @@
 {% block content %}
 
 <h1>{{post.title}}</h1>
-<h5>by {{post.creator}}</h5>
+<h5>by <a href="">{{post.creator.name}}</a></h5>
+{% if request.user == board.host %}
 <a href="{% url 'edit-post' title post.id  %}">Edit Post</a>
 <a href="{% url 'delete-post' title post.id  %}">Delete Post</a>
-<hr>
+{% endif %}
 <p>{{post.content}}</p>
+<hr>
+
+{% if request.user.is_authenticated %}
+<div>
+    <h4>Post a comment:</h4>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="content" placeholder="Write you comment here....">
+    </form>
+    <hr>
+</div>
+{% endif %}
+
+
+<div>
+    <h4>Comments:</h4>
+    {% for comment in comments %}
+    <small>
+        Posted by <a href="">{{comment.creator.name}}</a> , {{comment.created|timesince}} ago
+        {% if comment.creator == request.user %} |
+        <a href="{% url 'delete-comment' post.board.id post.id comment.id %}">Delete</a>
+        {% endif %}
+    </small>
+    <p>{{comment.content}}</p>
+    <br>
+    {% endfor %}
+</div>
+
+
+
 
 
 {% endblock content %}

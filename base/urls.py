@@ -21,4 +21,5 @@ urlpatterns = [
     path('edit-post/<str:pk>/<str:pk2>/',views.edit_post,name='edit-post'),
     path('delete-post/<str:pk>/<str:pk2>/',views.delete_post,name='delete-post'),
     #comments
+    path('delete-comment/<str:pk>/<str:pk2>/<str:pk3>/',views.delete_comment,name='delete-comment'),
 ]
