@@ -21,6 +21,9 @@ def home(request):
     context = {'boards':boards}
     return render(request,'base/home.html',context)
 
+def template(request):
+    return render(request,'base/template.html')
+
 #user
 
 def user_profile(request,pk):

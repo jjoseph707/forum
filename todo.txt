@@ -6,4 +6,4 @@
 6. Comments (CRUD/authentication) (done)
 7. Search functionality (done)
 8. User profiles + profile editing (done)
-9. Basic template 
+9. Basic template (done)

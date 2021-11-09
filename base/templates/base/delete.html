@@ -1,11 +1,24 @@
 {% extends 'main.html' %}
 {% block content %}
 
-<form action="" method="POST">
-    {% csrf_token %}
-    <p>Are you sure you want to delete "{{obj}}"?</p>
-    <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
-    <input type="submit" value="Confirm">
-</form>
+<!-- TEMPLATE UPDATED -->
+
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+    <div class="w3-row">
+        <div class="w3-col w3-center">
+
+            <div class="w3-container w3-card w3-white w3-round w3-margin w3-border"><br>
+                <p>Are you sure you want to delete "{{obj}}"?</p>
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <button class="w3-btn w3-blue-grey"><a href="{{request.META.HTTP_REFERER}}">Go Back</a></button>
+                    <button class="w3-btn w3-red" type="submit" value="Confirm">Confirm</button>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

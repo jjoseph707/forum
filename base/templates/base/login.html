@@ -1,20 +1,37 @@
 {% extends 'main.html' %}
 {% block content %}
 
-<div>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <label for="">Email:</label>
-        <input type="email" name="email" placeholder="Enter Email">
-        <br>
+<!-- TEMPLATE UPDATED -->
 
-        <label for="">Password:</label>
-        <input type="password" name="password" placeholder="Enter Password">
-        <br>
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+    <div class="w3-row">
+        <div class="w3-col w3-center">
 
-        <input type="submit" value="Login">
-    </form>
-    <p>No account? <a href="{% url 'register' %}">Sign up here</a></p>
+
+            <div class="w3-container w3-card w3-white w3-round w3-margin w3-border"><br>
+                <h2>Login</h2>
+                <hr>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <label for="">Email</label>
+                    <input class="w3-input center" type="email" name="email" placeholder="Enter Email">
+                    <br>
+            
+                    <label for="">Password</label>
+                    <input class="w3-input center" type="password" name="password" placeholder="Enter Password">
+                    <br>
+                    
+                    <button class="w3-btn w3-blue-grey" type="submit" value="Login">Login</button>
+                    
+                </form>
+                <p>No account? <a href="{% url 'register' %}">Sign up here</a></p>
+            </div>
+
+        </div>
+    </div>
 </div>
+
+<br>
+
 
 {% endblock content %}

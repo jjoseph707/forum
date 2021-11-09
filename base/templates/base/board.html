@@ -1,26 +1,53 @@
 {% extends 'main.html' %}
 {% block content %}
 
-<h1>{{board.topic}}</h1>
-<p>{{board.description}}</p>
-<form action="{% url 'board' board.topic%}" method="GET">
-    <input type="text" name="q" placeholder="Search {{board.topic}}....">
-</form>
+<!-- TEMPLATE UPDATED -->
 
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+    <div class="w3-row">
+        <div class="w3-col w3-center">
 
-{% if request.user.is_authenticated %}
-    {% if request.user == board.host %}
-    <a href="{% url 'edit-board' board.topic %}">Edit board</a>
-    <a href="{% url 'delete-board' board.topic %}">Delete board</a>
-    {% endif %}
-<a href="{% url 'create-post' board.topic %}">Add Post</a>
-{% endif %}
-<hr>
+            <div class="w3-row-padding">
+                <div class="w3-col m12">
+                    <div class=" w3-round w3-white">
+                        <div class="w3-container w3-padding">
+                            <h2>{{board.topic}}</h2>
+                            <p>{{board.description}}</p>
+                            <form action="{% url 'board' board.topic%}" method="GET">
+                                <input class="w3-input w3-border" type="text" name="q" placeholder="Search {{board.topic}}....">
+                            </form>
+                            {% if request.user.is_authenticated %}
+                            <br>
+                                {% if request.user == board.host %}
+                                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
+                                    <a href="{% url 'edit-board' board.topic %}">Edit Board</a>
+                                </button> 
+                                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
+                                    <a href="{% url 'delete-board' board.topic %}">Delete Board</a>
+                                </button>
+                                {% endif %} 
+                            <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
+                                <a href="{% url 'create-post' board.topic %}">Create Post</a>
+                            </button> 
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-{% for post in posts %}
-    <h4><a href="{% url 'post' board.topic post.id %}">{{post.title}}</a></h4>
-    <h5>Posted by <a href="{% url 'user-profile' post.creator.name %}">{{post.creator.name}}</a>, {{post.created|timesince}} ago</h5>
-    <hr>
-{% endfor %}
+            {% for post in posts %}
+            <div class="w3-container w3-card w3-white w3-round w3-margin w3-border"><br>
+                <h4><a href="{% url 'post' board.topic post.id %}">{{post.title}}</a></h4>
+                <h5>Posted by <a href="{% url 'user-profile' post.creator.name %}">{{post.creator.name}}</a>, {{post.created|timesince}} ago</h5>
+                <br>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<br>
+
 
 {% endblock content %}

@@ -1,13 +1,26 @@
 {% extends 'main.html' %}
 {% block content %}
 
-<h3>Post to {{title}}:</h3>
-<div>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Submit"/>
-    </form>
+<!-- TEMPLATE UPDATED -->
+
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+    <div class="w3-row">
+        <div class="w3-col w3-center">
+
+            <div class="w3-container w3-card w3-white w3-round w3-margin w3-border"><br>
+                <h2>Post to {{title}}</h2>
+                <hr>
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    
+                    <button class="w3-btn w3-blue-grey" type="submit" value="submit">Submit</button>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}

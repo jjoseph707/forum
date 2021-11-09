@@ -1,43 +1,69 @@
 {% extends 'main.html' %}
 {% block content %}
 
-<h1>{{post.title}}</h1>
-<h5>by <a href="{% url 'user-profile' post.creator.name %}">{{post.creator.name}}</a></h5>
-{% if request.user == board.host %}
-<a href="{% url 'edit-post' title post.id  %}">Edit Post</a>
-<a href="{% url 'delete-post' title post.id  %}">Delete Post</a>
-{% endif %}
-<p>{{post.content}}</p>
-<hr>
+<!-- TEMPLATE UPDATED -->
 
-{% if request.user.is_authenticated %}
-<div>
-    <h4>Post a comment:</h4>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" name="content" placeholder="Write you comment here....">
-    </form>
-    <hr>
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+    <div class="w3-row">
+        <div class="w3-col w3-center">
+
+            <div class="w3-row-padding">
+                <div class="w3-col m12">
+                    <div class=" w3-round w3-white">
+                        <div class="w3-container w3-border w3-padding">
+                            <h2>{{post.title}}</h2>
+                            <small>Posted by <a href="{% url 'user-profile' post.creator.name %}">{{post.creator.name}}</a></small>
+                            <br>
+                            <hr class="w3-clear">
+                            <p>{{post.content}}</p>
+                            {% if request.user == post.creator %}
+                            <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
+                                <a href="{% url 'edit-post' title post.id  %}">Edit Post</a>
+                            </button> 
+                            <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
+                                <a href="{% url 'delete-post' title post.id  %}">Delete Post</a>
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="w3-container  w3-white w3-round w3-margin "><br>
+                <h4>Comments:</h4>
+                {% if request.user.is_authenticated %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input class="w3-input w3-border" type="text" name="content" placeholder="Write your comment here....">
+                </form>
+                {% endif %}
+            </div>
+            
+
+
+            {% for comment in comments %}
+            <div class="w3-container w3-card w3-round-xxlarge w3-margin w3-border"><br>
+                <p>{{comment.content}}</p>
+                <small>
+                    Posted by <a href="{% url 'user-profile' comment.creator.name %}">{{comment.creator.name}}</a> , {{comment.created|timesince}} ago
+                    {% if comment.creator == request.user %} |
+                    <a href="{% url 'delete-comment' post.board.id post.id comment.id %}">Delete</a>
+                    {% endif %}
+                </small>
+                
+                <br>    
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
 </div>
-{% endif %}
 
-
-<div>
-    <h4>Comments:</h4>
-    {% for comment in comments %}
-    <small>
-        Posted by <a href="{% url 'user-profile' comment.creator.name %}">{{comment.creator.name}}</a> , {{comment.created|timesince}} ago
-        {% if comment.creator == request.user %} |
-        <a href="{% url 'delete-comment' post.board.id post.id comment.id %}">Delete</a>
-        {% endif %}
-    </small>
-    <p>{{comment.content}}</p>
-    <br>
-    {% endfor %}
-</div>
-
-
+<br>
 
 
 
 {% endblock content %}
+
